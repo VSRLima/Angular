@@ -1,0 +1,6 @@
+<h1>
+    <i [class.color-selected]="meuFavorito" [class.color-not-selected]="!meuFavorito" (click)="onClick()">A</i>
+</h1>
+<h1>    
+    <i [ngClass]="{'color-selected': meuFavorito, 'color-not-selected': !meuFavorito}" (click)="onClick()">Mayanne</i>
+</h1>

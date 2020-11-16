@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<section class="property-binding">
+    <!--article>
+        <h3>Interpolation/Interpolação</h3>
+        <p>String renderizada com Interpolação: {{url}}</p>
+        <p>Resultado de 1 + 1 é: {{1 + 1}}</p>
+        <p>Resultado de 1 + 1 não é {{1 + 1 + getValor()}}</p>
+        <p>Curso Angular e Gostar do curso {{cursoAngular && getCurtirCurso()}}</p>
+    </article>
+    <article>
+        <img src="{{urlImagem}}" alt="">
+        <img [src]="urlImagem" alt="">
+    </article>
+    <article>
+        <h3>Class e style binding</h3>
+        <div>
+            Selecione uma classe:
+            <select #classe (change)="0">
+                <option value="alert-success">Sucesso</option>
+                <option value="alert-info">Info</option>
+                <option value="alert-warning">Alerta</option>
+                <option value="alert-danger">Erro</option>
+            </select>
+            <br><br>
+            <div class="alert {{ classe.value }} role='alert'">
+                Texto colorido conforme valor do combobox.
+            </div>
+            <div class="alert" role="alert" [class.alert-success]="classe.value == 'alert-success'">
+                Sucesso
+            </div>
+            <div class="alert" role="alert" [class.alert-danger]="classe.value == 'alert-danger'">
+                Erro
+            </div>
+            <div class="alert" role="alert" [class.alert-warning]="classe.value == 'alert-warning'">
+                Alerta
+            </div>
+            <div class="alert" role="alert" [class.alert-info]="classe.value == 'alert-info'">
+                Info
+            </div>
+            <div class="alert alert-danger" role="alert" [style.display]="classe.value == 'alert-danger'? 'block' : 'none'">
+                Esse texto somente aparece em caso de erro.
+            </div>
+        </div>
+    </article>
+    <section class="event-binding">
+        <article>
+            <h3>Event binding</h3>
+            <div>
+                <button (click)="botaoClicado()" class="btn btn-primary">Me clique</button>
+                <br><br>
+                <input type="text" (keyup)="onKeyUp($event)" (keyup.enter)="SalvarValor(campoInput.value)"
+                (blur)="SalvarValor(campoInput.value)" #campoInput/>
+                <p>Valor atual: {{valorAtual}}</p>
+                <p>Valor atual: {{valorSalvo}}</p>
+                <br><br>
+                <span (mouseover)="onMouseOverOut()" (mouseout)="onMouseOverOut()" [class.highlight]="isMouseOver"> 
+                    Passe o mouse sobre mim
+                </span>
+            </div>
+        </article>
+    </section>
+    <section class="two-way">
+        <article>
+            <h3>Two-way data binding</h3>
+            <div>
+                <input type="text" [value]="nome" (input)="nome = $event">
+                <p>Você digitou um nome {{nome}}</p>
+                <input [ngModel]="nome" (ngModelChange)="nome = $event">
+                <p>Você digitou um nome {{nome}}</p>
+                <input type="text" [(ngModel)]="nome">
+                <p>Você digitou um nome {{nome}}</p>
+            </div>
+            <div>
+                <input type="text" [(ngModel)]="pessoa.nome">
+                <input type="text" [(ngModel)]="pessoa.idade">
+                <p>Meu nome é {{pessoa.nome}} e tenho {{pessoa.idade}} anos</p>
+            </div>
+        </article>
+    </section-->
+    <section class="input-output-properties">
+        <article>
+            <h3>Input/Output Properties</h3>
+            <app-curso [nome]="nomeDoCurso"></app-curso>
+            <contador [valor]="valorInicial" (mudouValor)="onMudouValor($event)"></contador>
+        </article>
+    </section>
+</section>
