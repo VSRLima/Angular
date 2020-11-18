@@ -7,19 +7,17 @@ export class CamelCasePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     let values = value.split('');
-    let result = '';
+    let result =  '';
     
     for(let v of values) {
-      result += this.capitalize(v)
-      
+      result += v
     }
-    return result;
-  }
-
-  capitalize(value: string) {
-    console.log(value);
-    value[0].toLocaleUpperCase()
+    return result.replace(
+      result[0], result[0].toUpperCase() 
+      );
     
   }
+
+ 
 
 }
