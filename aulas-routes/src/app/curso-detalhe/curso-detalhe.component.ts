@@ -1,7 +1,7 @@
 import { CursosService } from './../services/cursos.service';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,7 +15,7 @@ export class CursoDetalheComponent implements OnInit, OnDestroy {
   inscricao: Subscription;
   curso: any;
 
-  constructor(private route: ActivatedRoute, private cursoService: CursosService) {
+  constructor(private route: ActivatedRoute, private cursoService: CursosService, private router: Router) {
     //this.id = this.route.snapshot.params['id'];
    }
 
@@ -24,6 +24,9 @@ export class CursoDetalheComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       this.curso = this.cursoService.getCursosById(this.id);
     });
+    if (this.curso == null) {
+      this.router.navigate(['/naoEncontrado'])
+    };
   }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
