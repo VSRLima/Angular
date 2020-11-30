@@ -2,15 +2,15 @@
     <form class="col s12">
         <div class="row">
             <div class="input-field col s6">
-                <input placeholder="ID do Aluno" id="id" type="text" class="validate" [(ngModel)]="alunos.id">
+                <input placeholder="ID do Aluno" id="id" type="text" class="active" [(ngModel)]="alunos.id" [ngModelOptions]="{standalone: true}">
                 <label for="id">ID do Aluno</label>
             </div>
             <div class="input-field col s6">
-                <input placeholder="Nome do Aluno" id="nome" type="text" class="validate" [(ngModel)]="alunos.nome">
+                <input placeholder="Nome do Aluno" id="nome" type="text" class="active" [(ngModel)]="alunos.nome" [ngModelOptions]="{standalone: true}">
                 <label for="nome">Nome do Aluno</label>
             </div>
             <div class="input-field col s6">
-                <input placeholder="Email do Aluno" id="email" type="text" class="validate" [(ngModel)]="alunos.email">
+                <input placeholder="Email do Aluno" id="email" type="text" class="active" [(ngModel)]="alunos.email" [ngModelOptions]="{standalone: true}">
                 <label for="email">Email do aluno</label>
             </div>
         </div>
