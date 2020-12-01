@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule} from '../app/app.routing';
+import { AlunosGuard } from './guards/alunos.guard';
+import { CursosGuard } from './guards/cursos.guard';
 
 
 @NgModule({
@@ -21,7 +23,7 @@ import { AppRoutingModule} from '../app/app.routing';
     BrowserAnimationsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [CursosGuard, AlunosGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
