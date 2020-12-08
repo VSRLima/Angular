@@ -12,6 +12,7 @@ export class AlunosFormsComponent implements OnInit, OnDestroy {
 
   alunos: any;
   inscricao: Subscription;
+  formMudou: boolean = false;
 
   constructor(private alunoService: AlunosService, private route: ActivatedRoute) { }
 
@@ -32,6 +33,11 @@ export class AlunosFormsComponent implements OnInit, OnDestroy {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.inscricao.unsubscribe()
+  }
+
+  onInput() {
+    this.formMudou = true;
+    console.log('mudou');
   }
 
 }

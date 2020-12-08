@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 export class AlunosGuard implements CanActivateChild{
 
     canActivateChild (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-        console.log(route);
-        console.log(state);
-        return true;
+       // console.log(route);
+       // console.log(state);
+       return true;
     }
 }
