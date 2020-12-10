@@ -9,7 +9,7 @@ import { AlunosDeactivateGuard } from '../guards/alunos-deactivate.guard';
 const alunosRoutes = [
     {path: '', component: AlunosComponent, children: [
         {path: ':id', component: AlunoDetalheComponent},
-        {path: 'editar/:id', component: AlunosFormsComponent, CanDeactivate: [AlunosDeactivateGuard]},
+        {path: 'editar/:id', component: AlunosFormsComponent, canDeactivate: [AlunosDeactivateGuard]},
         {path: 'novo', component: AlunosFormsComponent}
     ]}
 ];

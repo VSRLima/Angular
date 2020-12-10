@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule} from '../app/app.routing';
 import { AlunosGuard } from './guards/alunos.guard';
 import { CursosGuard } from './guards/cursos.guard';
+import { AlunosDeactivateGuard } from './guards/alunos-deactivate.guard';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { CursosGuard } from './guards/cursos.guard';
     BrowserAnimationsModule,
     FormsModule
   ],
-  providers: [CursosGuard, AlunosGuard],
+  providers: [CursosGuard, AlunosGuard, AlunosDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
 import { AlunosService } from './../alunos.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, UrlTree } from '@angular/router';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-alunos-forms',
@@ -39,5 +39,13 @@ export class AlunosFormsComponent implements OnInit, OnDestroy {
     this.formMudou = true;
     console.log('mudou');
   }
+
+  canDeactivate(): boolean | Observable<boolean> | Promise<boolean> | UrlTree {
+    if (this.formMudou) {
+      return confirm("As alterações no formulário não foram salvas e serão descartadas, deseja prosseguir?")
+    } else {
+      return true;
+    }
+  };
 
 }
