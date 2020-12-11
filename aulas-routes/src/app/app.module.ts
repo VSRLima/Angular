@@ -10,6 +10,7 @@ import { AppRoutingModule} from '../app/app.routing';
 import { AlunosGuard } from './guards/alunos.guard';
 import { CursosGuard } from './guards/cursos.guard';
 import { AlunosDeactivateGuard } from './guards/alunos-deactivate.guard';
+import { AlunoDetalheResolver } from './guards/aluno-detalhe.resolver';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { AlunosDeactivateGuard } from './guards/alunos-deactivate.guard';
     BrowserAnimationsModule,
     FormsModule
   ],
-  providers: [CursosGuard, AlunosGuard, AlunosDeactivateGuard],
+  providers: [CursosGuard, AlunosGuard, AlunosDeactivateGuard, AlunoDetalheResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
