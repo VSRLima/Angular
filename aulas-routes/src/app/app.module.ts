@@ -11,6 +11,7 @@ import { AlunosGuard } from './guards/alunos.guard';
 import { CursosGuard } from './guards/cursos.guard';
 import { AlunosDeactivateGuard } from './guards/alunos-deactivate.guard';
 import { AlunoDetalheResolver } from './guards/aluno-detalhe.resolver';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { AlunoDetalheResolver } from './guards/aluno-detalhe.resolver';
     AppComponent,
     HomeComponent,
     LoginComponent,
+    PaginaNaoEncontradaComponent,
   ],
   imports: [
     BrowserModule,
