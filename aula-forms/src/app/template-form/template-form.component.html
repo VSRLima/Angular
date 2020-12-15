@@ -1,0 +1,32 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="space">
+    <div class="form-group row mb-3"> 
+        <label for="nome" class="col-sm-12 col-form-label">Nome</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" [(ngModel)]="usuario.nome" required #nome="ngModel">
+            <div *ngIf="!nome.valid && nome.touched" class="alert alert-danger" role="alert">
+                Nome é obrigatório 
+            </div>
+        </div>
+        
+    </div>
+    <div class="form-group row mb-3"> 
+        <label for="email" class="col-sm-12 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" id="email" placeholder="Email" name="email" [(ngModel)]="usuario.email" required #email="ngModel">
+            <div *ngIf="!email.valid && email.touched" class="alert alert-danger" role="alert">
+                Email é obrigatório 
+            </div>
+        </div>
+    </div>
+    <div class="form-group row mb-3">
+        <div class="col-md-3">
+            <label for="cep" class="control-label">CEP</label>
+            <input type="text" class="form-control" id="cep" name="cep" name="cep" ngModel required #cep="ngModel" placeholder="00000-000">
+            <div *ngIf="!cep.valid && cep.touched" class="alert alert-danger" role="alert">
+                CEP é obrigatório 
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+    <app-form-debug [form]="f"></app-form-debug>
+</form>
