@@ -1,6 +1,11 @@
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { EstadosService } from './../services/estados.service';
+import { EstadoBr } from './../models/estado-br';
+import { ConsultaCepService } from 'src/app/services/consulta-cep.service';
 
 @Component({
   selector: 'app-data-form',
@@ -10,15 +15,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DataFormComponent implements OnInit {
 
   formulario: FormGroup;
+  estados: Observable<EstadoBr[]>;
+  cargos: any[];
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private estadoService: EstadosService, private cepService: ConsultaCepService) { }
 
   ngOnInit(): void {
 
-    /*this.formulario = new FormGroup({
-      nome: new FormControl(null),
-      email: new FormControl(null)
-    });*/
+    this.estados = this.estadoService.getEstadosBr();
+    this.cargos = this.estadoService.getCargos();
 
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
@@ -31,7 +36,9 @@ export class DataFormComponent implements OnInit {
         bairro: [null, Validators.required],
         cidade: [null, Validators.required],
         estado: [null, Validators.required]
-      })
+      }),
+
+      cargo: [null]
     })
   }
 
@@ -45,10 +52,26 @@ export class DataFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.formulario);
-    this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value)).subscribe( dados => {
-      console.log(dados);
-      //this.resetar();
-    }, (error:any) => alert('erro'));
+
+    if(this.formulario.valid) {
+      this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value)).subscribe( dados => {
+        console.log(dados);
+      }, (error:any) => alert('erro'));
+    } else {
+      console.log('formulário inválido');
+      this.verificaValidacoesForm(this.formulario);
+    }
+  }
+
+  verificaValidacoesForm(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(campo => {
+      console.log(campo);
+      var controle = formGroup.get(campo);
+      controle.markAsTouched();
+      if (controle instanceof FormGroup) {
+        this.verificaValidacoesForm(controle);
+      }
+    });
   }
 
   resetar() {
@@ -57,28 +80,12 @@ export class DataFormComponent implements OnInit {
 
   consultaCEP() {
     let cep = this.formulario.get('endereco.cep').value;
-    //"cep" somente com dígitos
-    cep = cep.replace(/\D/g,'');
-
-    //Verifica se campo cep possui valor informado.
-    if (cep != "") {
-      //Expressão regular para validar o CEP.
-      var validacep = /^[0-9]{8}$/;
-      //Valida o formato do CEP.
-      if (validacep.test(cep)) {
-        console.log("validada");
-        this.resetaDadosForm();
-        this.http.get(`https://viacep.com.br/ws/${cep}/json`).subscribe(
-          dados =>{
-            this.popularDadosForm(dados);
-          } 
-          );
-      } else {
-        //cep é inválido
-        this.resetaDadosForm();
-        alert("Por gentileza, digite o CEP corretamente (SOMENTE NÚMEROS)");
-        console.log
-      }
+    if (cep != null && cep !== '') {
+      this.cepService.consultaCEP(cep).subscribe(
+        dados =>{
+          this.popularDadosForm(dados);
+        }
+      );
     }
   }
 
@@ -105,6 +112,13 @@ export class DataFormComponent implements OnInit {
       }
     })
   }
-   
 
+  setarCargo() {
+    const cargo = { nome: 'Dev', nivel: 'Pleno', desc:'Dev Pl'};
+    this.formulario.get('cargo').setValue(cargo);
+  }
+
+  compararCargos(ob1, ob2) {
+    return ob1 && ob2 ? (ob1.nome === ob2.nome && ob1.nivel === ob2.nivel && ob1.desc === ob2.desc) : ob1 === ob2;
+  }
 }
