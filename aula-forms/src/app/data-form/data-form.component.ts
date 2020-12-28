@@ -1,3 +1,4 @@
+import { Tecnologias } from './../models/tecnologias';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EstadosService } from './../services/estados.service';
 import { EstadoBr } from './../models/estado-br';
 import { ConsultaCepService } from 'src/app/services/consulta-cep.service';
+import { Cargos } from '../models/cargos';
 
 @Component({
   selector: 'app-data-form',
@@ -16,7 +18,8 @@ export class DataFormComponent implements OnInit {
 
   formulario: FormGroup;
   estados: Observable<EstadoBr[]>;
-  cargos: any[];
+  cargos: Observable<Cargos[]>;
+  tecnologia: Observable<Tecnologias[]>;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private estadoService: EstadosService, private cepService: ConsultaCepService) { }
 
@@ -24,6 +27,8 @@ export class DataFormComponent implements OnInit {
 
     this.estados = this.estadoService.getEstadosBr();
     this.cargos = this.estadoService.getCargos();
+    this.tecnologia = this.estadoService.getTecnologias();
+
 
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
@@ -38,7 +43,8 @@ export class DataFormComponent implements OnInit {
         estado: [null, Validators.required]
       }),
 
-      cargo: [null]
+      cargo: [null],
+      tecnologia: [null]
     })
   }
 
