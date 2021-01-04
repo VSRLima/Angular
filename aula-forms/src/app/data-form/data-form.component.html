@@ -79,23 +79,48 @@
   <div class="form-group">
     <div class="col-sm-3">
       <label for="cargo" class="control-label">Cargo</label>
-      <select class="form-control" id="cargo" formControlName="cargo">
-        <option *ngFor="let cargo of cargos | async" [value]="cargo.desc">
+      <select class="form-control" id="cargo" formControlName="cargo" [compareWith]="compararCargos">
+        <option *ngFor="let cargo of cargos | async" [ngValue]="cargo">
           {{ cargo.desc }}
         </option>
       </select>
     </div>
     <div class="col-sm-3">
       <label for="tecnologia" class="control-label">Tecnologias</label>
-      <select class="form-control" id="tecnologia" formControlName="tecnologia" >
-        <option *ngFor="let tecnologia of tecnologia | async" [value]="tecnologia.nome">
+      <select multiple class="form-control" id="tecnologia" formControlName="tecnologia" [compareWith]="compararCargos">
+        <option *ngFor="let tecnologia of tecnologia | async" [ngValue]="tecnologia">
           {{ tecnologia.desc }}
         </option>
       </select>
     </div>
+    <div class="col-sm-3">
+      <label for="newsletter" class="control-label">Newsletters</label>
+      <div id="newsletter" class="row">
+        <div class="col-sm-4" *ngFor="let item of newsletters | async">
+          <label class="radio-inline">
+            <input type="radio" [value]="item.valor" formControlName="newsletter"> {{ item.desc }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-3">
+      <div class="form-check needs-validation">
+        <input class="form-check-input" type="checkbox" formControlName="termos" id="invalidCheck" required>
+        <label class="form-check-label" for="invalidCheck">
+          Aceito os termos.
+        </label>
+        <div class="invalid-feedback">
+          You must agree before submitting.
+        </div>
+      </div>
+    </div>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
-  <button class="btn" (click)="resetar()">Cancelar</button>
-  <button class="btn" (click)="setarCargo()">Cargo</button>
+  <button class="btn btn-default" (click)="resetar()">Cancelar</button>
+  <button class="btn btn-info" (click)="setarCargo()">Cargo</button>
+  <button class="btn btn-info" (click)="setarTecnologias()">Tecnologias</button>
   <app-form-debug [form]="formulario"></app-form-debug>
 </form>
+

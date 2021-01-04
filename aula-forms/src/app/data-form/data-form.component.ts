@@ -1,3 +1,4 @@
+import { Newsletters } from './../models/newsletters';
 import { Tecnologias } from './../models/tecnologias';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -20,6 +21,9 @@ export class DataFormComponent implements OnInit {
   estados: Observable<EstadoBr[]>;
   cargos: Observable<Cargos[]>;
   tecnologia: Observable<Tecnologias[]>;
+  newsletters: Observable<Newsletters[]>;
+  itens;
+  tecnologias;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private estadoService: EstadosService, private cepService: ConsultaCepService) { }
 
@@ -28,7 +32,17 @@ export class DataFormComponent implements OnInit {
     this.estados = this.estadoService.getEstadosBr();
     this.cargos = this.estadoService.getCargos();
     this.tecnologia = this.estadoService.getTecnologias();
+    this.newsletters = this.estadoService.getNewsletters();
 
+    this.estadoService.getCargos().subscribe(res => {
+      this.itens = res[0];
+      console.log(this.itens)
+    })
+
+    this.estadoService.getTecnologias().subscribe(res => {
+      this.tecnologias = res;
+      console.log(this.tecnologias);
+    })
 
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
@@ -42,9 +56,10 @@ export class DataFormComponent implements OnInit {
         cidade: [null, Validators.required],
         estado: [null, Validators.required]
       }),
-
       cargo: [null],
-      tecnologia: [null]
+      tecnologia: [null],
+      newsletter: ['s'],
+      termos: [null, Validators.pattern('true')]
     })
   }
 
@@ -58,7 +73,6 @@ export class DataFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.formulario);
-
     if(this.formulario.valid) {
       this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value)).subscribe( dados => {
         console.log(dados);
@@ -120,11 +134,14 @@ export class DataFormComponent implements OnInit {
   }
 
   setarCargo() {
-    const cargo = { nome: 'Dev', nivel: 'Pleno', desc:'Dev Pl'};
-    this.formulario.get('cargo').setValue(cargo);
+    this.formulario.get('cargo').setValue(this.itens);
   }
 
   compararCargos(ob1, ob2) {
     return ob1 && ob2 ? (ob1.nome === ob2.nome && ob1.nivel === ob2.nivel && ob1.desc === ob2.desc) : ob1 === ob2;
+  }
+
+  setarTecnologias() {
+    this.formulario.get('tecnologia').setValue(this.tecnologias);
   }
 }

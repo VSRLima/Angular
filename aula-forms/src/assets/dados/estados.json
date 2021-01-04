@@ -170,5 +170,15 @@
       "nivel": "Senior",
       "desc":"Dev Sr"
     }
+  ],
+  "newsletter": [
+    {
+      "valor": "s",
+      "desc": "Sim"
+    },
+    {
+      "valor": "n",
+      "desc": "Não"
+    }
   ]
 }
