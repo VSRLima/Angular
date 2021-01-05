@@ -180,5 +180,19 @@
       "valor": "n",
       "desc": "Não"
     }
+  ],
+  "frameworks": [
+    {
+      "nome": "Angular"
+    },
+    {
+      "nome": "React"
+    },
+    {
+      "nome": "Vue"
+    },
+    {
+      "nome": "Sencha"
+    }
   ]
 }

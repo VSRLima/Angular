@@ -1,9 +1,10 @@
+import { Frameworks } from './../models/frameworks';
 import { Newsletters } from './../models/newsletters';
 import { Tecnologias } from './../models/tecnologias';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { EstadosService } from './../services/estados.service';
 import { EstadoBr } from './../models/estado-br';
@@ -22,8 +23,9 @@ export class DataFormComponent implements OnInit {
   cargos: Observable<Cargos[]>;
   tecnologia: Observable<Tecnologias[]>;
   newsletters: Observable<Newsletters[]>;
-  itens;
-  tecnologias;
+  itens: any;
+  tecnologias: any;
+  frameworks: any;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private estadoService: EstadosService, private cepService: ConsultaCepService) { }
 
@@ -34,15 +36,20 @@ export class DataFormComponent implements OnInit {
     this.tecnologia = this.estadoService.getTecnologias();
     this.newsletters = this.estadoService.getNewsletters();
 
+    this.estadoService.getFrameworks().subscribe(res => {
+      this.frameworks = res;
+      console.log(this.frameworks)
+    })
+
     this.estadoService.getCargos().subscribe(res => {
       this.itens = res[0];
       console.log(this.itens)
-    })
+    });
 
     this.estadoService.getTecnologias().subscribe(res => {
       this.tecnologias = res;
       console.log(this.tecnologias);
-    })
+    });
 
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
@@ -59,8 +66,14 @@ export class DataFormComponent implements OnInit {
       cargo: [null],
       tecnologia: [null],
       newsletter: ['s'],
-      termos: [null, Validators.pattern('true')]
+      termos: [null, Validators.pattern('true')],
+      frameworks: this.buildFrameworks()
     })
+  }
+
+  buildFrameworks() {
+    const values = this.frameworks.map(v => new FormControl(false));
+    return this.formBuilder.array(values);
   }
 
   verificadorTouchedEValid(campo) {
