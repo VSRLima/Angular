@@ -1,15 +1,15 @@
-import { Frameworks } from './../models/frameworks';
-import { Newsletters } from './../models/newsletters';
-import { Tecnologias } from './../models/tecnologias';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 import { EstadosService } from './../services/estados.service';
 import { EstadoBr } from './../models/estado-br';
 import { ConsultaCepService } from 'src/app/services/consulta-cep.service';
 import { Cargos } from '../models/cargos';
+import { Frameworks } from './../models/frameworks';
+import { Newsletters } from './../models/newsletters';
+import { Tecnologias } from './../models/tecnologias';
 
 @Component({
   selector: 'app-data-form',
@@ -38,6 +38,7 @@ export class DataFormComponent implements OnInit {
 
     this.estadoService.getFrameworks().subscribe(res => {
       this.frameworks = res;
+      res.forEach(v => this.framework.push(this.formBuilder.control(false)))
       console.log(this.frameworks)
     })
 
@@ -67,13 +68,12 @@ export class DataFormComponent implements OnInit {
       tecnologia: [null],
       newsletter: ['s'],
       termos: [null, Validators.pattern('true')],
-      frameworks: this.buildFrameworks()
+      framework: this.formBuilder.array([ ])
     })
   }
 
-  buildFrameworks() {
-    const values = this.frameworks.map(v => new FormControl(false));
-    return this.formBuilder.array(values);
+  get framework() {
+    return this.formulario.get('framework') as FormArray;
   }
 
   verificadorTouchedEValid(campo) {
@@ -86,8 +86,16 @@ export class DataFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.formulario);
+    let valueSubmit = Object.assign({}, this.formulario.value);
+     valueSubmit = Object.assign(valueSubmit, {
+      framework: valueSubmit.framework.map((v,i) => v ? this.frameworks[i] : null).filter(v => v !== null)
+    });
+    console.log(valueSubmit.framework);
+    //valueSubmit = Object.assign(valueSubmit, {
+    //  framework: valueSubmit
+   // })
     if(this.formulario.valid) {
-      this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value)).subscribe( dados => {
+      this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit)).subscribe( dados => {
         console.log(dados);
       }, (error:any) => alert('erro'));
     } else {
