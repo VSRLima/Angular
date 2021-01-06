@@ -120,9 +120,12 @@
       <label for="">Frameworks</label>
       <div id="frameworks" class="row">
         <div class="form-check col-sm-4" *ngFor="let framework of frameworks; let i = index" formArrayName="framework">
-          <input class="form-check-input" type="checkbox" [formControlName]="i"> 
+          <input class="form-check-input" type="checkbox" [formControlName]="i">
           <label class="form-check-label">{{framework.nome}}</label>
         </div>
+      </div>
+      <div *ngIf="verificadorTouchedEValid('framework')" class="alert alert-danger" role="alert">
+        Selecione 1 opção
       </div>
     </div>
   </div>

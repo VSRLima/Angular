@@ -1,3 +1,4 @@
+import { FormValidators } from './../services/form-validators';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -7,7 +8,6 @@ import { EstadosService } from './../services/estados.service';
 import { EstadoBr } from './../models/estado-br';
 import { ConsultaCepService } from 'src/app/services/consulta-cep.service';
 import { Cargos } from '../models/cargos';
-import { Frameworks } from './../models/frameworks';
 import { Newsletters } from './../models/newsletters';
 import { Tecnologias } from './../models/tecnologias';
 
@@ -38,7 +38,7 @@ export class DataFormComponent implements OnInit {
 
     this.estadoService.getFrameworks().subscribe(res => {
       this.frameworks = res;
-      res.forEach(v => this.framework.push(this.formBuilder.control(false)))
+      res.forEach(v => this.framework.push(this.formBuilder.control(false, FormValidators.requiredMinCheckbox(1))))
       console.log(this.frameworks)
     })
 
@@ -68,7 +68,7 @@ export class DataFormComponent implements OnInit {
       tecnologia: [null],
       newsletter: ['s'],
       termos: [null, Validators.pattern('true')],
-      framework: this.formBuilder.array([ ])
+      framework: this.formBuilder.array([])
     })
   }
 
@@ -85,15 +85,11 @@ export class DataFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formulario);
     let valueSubmit = Object.assign({}, this.formulario.value);
      valueSubmit = Object.assign(valueSubmit, {
       framework: valueSubmit.framework.map((v,i) => v ? this.frameworks[i] : null).filter(v => v !== null)
     });
-    console.log(valueSubmit.framework);
-    //valueSubmit = Object.assign(valueSubmit, {
-    //  framework: valueSubmit
-   // })
+    console.log(valueSubmit);
     if(this.formulario.valid) {
       this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit)).subscribe( dados => {
         console.log(dados);
@@ -101,7 +97,8 @@ export class DataFormComponent implements OnInit {
     } else {
       console.log('formulário inválido');
       this.verificaValidacoesForm(this.formulario);
-    }
+    };
+    console.log(this.formulario);
   }
 
   verificaValidacoesForm(formGroup: FormGroup) {
