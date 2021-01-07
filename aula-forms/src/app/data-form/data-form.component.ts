@@ -1,8 +1,7 @@
-import { FormValidators } from './../services/form-validators';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl } from '@angular/forms';
 
 import { EstadosService } from './../services/estados.service';
 import { EstadoBr } from './../models/estado-br';
@@ -10,6 +9,7 @@ import { ConsultaCepService } from 'src/app/services/consulta-cep.service';
 import { Cargos } from '../models/cargos';
 import { Newsletters } from './../models/newsletters';
 import { Tecnologias } from './../models/tecnologias';
+import { FormValidators } from '../models/form-validators';
 
 @Component({
   selector: 'app-data-form',
@@ -38,7 +38,7 @@ export class DataFormComponent implements OnInit {
 
     this.estadoService.getFrameworks().subscribe(res => {
       this.frameworks = res;
-      res.forEach(v => this.framework.push(this.formBuilder.control(false, FormValidators.requiredMinCheckbox(1))))
+      res.forEach(v => this.framework.push(this.formBuilder.control(false, Validators.minLength(1))))
       console.log(this.frameworks)
     })
 
@@ -55,8 +55,9 @@ export class DataFormComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
+      confirmarEmail: [null, [FormValidators.equalsTo('email')]],
       endereco: this.formBuilder.group({
-        cep: [null, Validators.required],
+        cep: [null, [Validators.required, FormValidators.cepValidator]],
         numero: [null, Validators.required],
         complemento: [null],
         rua: [null, Validators.required],
@@ -74,6 +75,14 @@ export class DataFormComponent implements OnInit {
 
   get framework() {
     return this.formulario.get('framework') as FormArray;
+  }
+
+  verificadorFramework() {
+    if (this.formulario.get('framework').dirty == false) {
+      return true
+    } else {
+      return false
+    }
   }
 
   verificadorTouchedEValid(campo) {
@@ -97,6 +106,7 @@ export class DataFormComponent implements OnInit {
     } else {
       console.log('formulário inválido');
       this.verificaValidacoesForm(this.formulario);
+      this.verificadorFramework();
     };
     console.log(this.formulario);
   }
