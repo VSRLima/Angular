@@ -36,7 +36,7 @@ export class FormValidators {
      }
       const field = (<FormGroup>formControl.root).get(otherField);
       if (!field) {
-        throw new Error('É necessaário informar um campo válido.');
+        throw new Error('É necessário informar um campo válido.');
       }
 
       if (field.value !== formControl.value) {

@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { retry } from 'rxjs/operators';
 
-import { EstadoBr } from './../models/estado-br';
-import { Cargos } from './../models/cargos';
-import { Tecnologias } from './../models/tecnologias';
-import { Newsletters } from './../models/newsletters';
-import { Frameworks } from './../models/frameworks';
+import { EstadoBr } from '../models/estado-br';
+import { Cargos } from '../models/cargos';
+import { Tecnologias } from '../models/tecnologias';
+import { Newsletters } from '../models/newsletters';
+import { Frameworks } from '../models/frameworks';
 
 @Injectable({
   providedIn: 'root'

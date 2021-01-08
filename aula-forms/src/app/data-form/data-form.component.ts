@@ -1,15 +1,17 @@
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 
-import { EstadosService } from './../services/estados.service';
-import { EstadoBr } from './../models/estado-br';
-import { ConsultaCepService } from 'src/app/services/consulta-cep.service';
-import { Cargos } from '../models/cargos';
-import { Newsletters } from './../models/newsletters';
-import { Tecnologias } from './../models/tecnologias';
-import { FormValidators } from '../models/form-validators';
+import { EstadosService } from '../shared/services/estados.service';
+import { EstadoBr } from '../shared/models/estado-br';
+import { ConsultaCepService } from 'src/app/shared/services/consulta-cep.service';
+import { Cargos } from '../shared/models/cargos';
+import { Newsletters } from '../shared/models/newsletters';
+import { Tecnologias } from '../shared/models/tecnologias';
+import { FormValidators } from '../shared/models/form-validators';
+import { VerificaEmailService } from '../shared/services/verifica-email.service';
 
 @Component({
   selector: 'app-data-form',
@@ -27,7 +29,13 @@ export class DataFormComponent implements OnInit {
   tecnologias: any;
   frameworks: any;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private estadoService: EstadosService, private cepService: ConsultaCepService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private estadoService: EstadosService,
+    private cepService: ConsultaCepService,
+    private verificaEmailService: VerificaEmailService
+  ) { }
 
   ngOnInit(): void {
 
@@ -35,6 +43,7 @@ export class DataFormComponent implements OnInit {
     this.cargos = this.estadoService.getCargos();
     this.tecnologia = this.estadoService.getTecnologias();
     this.newsletters = this.estadoService.getNewsletters();
+    // this.verificaEmailService.verificarEmail('email@email.com').subscribe()
 
     this.estadoService.getFrameworks().subscribe(res => {
       this.frameworks = res;
@@ -54,7 +63,7 @@ export class DataFormComponent implements OnInit {
 
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
+      email: [null, [Validators.required, Validators.email], this.validarEmail.bind(this)],
       confirmarEmail: [null, [FormValidators.equalsTo('email')]],
       endereco: this.formBuilder.group({
         cep: [null, [Validators.required, FormValidators.cepValidator]],
@@ -171,5 +180,10 @@ export class DataFormComponent implements OnInit {
 
   setarTecnologias() {
     this.formulario.get('tecnologia').setValue(this.tecnologias);
+  }
+
+  validarEmail(formControl: FormControl) {
+    return this.verificaEmailService.verificarEmail(formControl.value)
+    .pipe(map((emailExiste => emailExiste ? {emailInvalido: true} : null)));
   }
 }

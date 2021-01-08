@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { ConsultaCepService } from 'src/app/services/consulta-cep.service';
+import { ConsultaCepService } from 'src/app/shared/services/consulta-cep.service';
 
 @Component({
   selector: 'app-template-form',
@@ -43,7 +43,7 @@ export class TemplateFormComponent implements OnInit {
         }
       );
     }
-    
+
   }
 
   popularDadosForm(dados, form) {

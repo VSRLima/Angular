@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DataFormComponent } from './data-form.component';
-import { EstadosService } from './../services/estados.service';
+import { EstadosService } from '../shared/services/estados.service';
 import { FormDebugComponent } from './../form-debug/form-debug.component';
 
 @NgModule({
@@ -14,8 +14,8 @@ import { FormDebugComponent } from './../form-debug/form-debug.component';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule, 
-    FormsModule, 
+    ReactiveFormsModule,
+    FormsModule,
     HttpClientModule
   ],
   exports: [
