@@ -7,13 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TemplateFormComponent } from './template-form/template-form.component';
 import { DataFormModule } from './data-form/data-form.module';
-import { ErroMsgComponent } from './shared/erro-msg/erro-msg.component';
+// import { ErroMsgComponent } from './shared/erro-msg/erro-msg.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateFormComponent,
-    ErroMsgComponent,
+    // ErroMsgComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +24,7 @@ import { ErroMsgComponent } from './shared/erro-msg/erro-msg.component';
     DataFormModule
   ],
   exports: [
-    ErroMsgComponent
+    // ErroMsgComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

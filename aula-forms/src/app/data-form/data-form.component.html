@@ -3,19 +3,18 @@
     <label for="nome" class="col-sm-12 col-form-label">Nome</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome" required />
-      <div *ngIf="verificadorTouchedEValid('nome')" class="alert alert-danger" role="alert">
+      <app-erro-msg [control]="formulario.get('nome')" label="Nome"></app-erro-msg>
+      <!-- <div *ngIf="verificadorTouchedEValid('nome')" class="alert alert-danger" role="alert">
         Nome é obrigatório
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="form-group row mb-3">
     <label for="email" class="col-sm-12 col-form-label">Email</label>
     <div class="col-sm-12">
       <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" required />
-      <div *ngIf="verificadorTouchedEValid('email')" class="alert alert-danger" role="alert">
-       Email é obrigatório
-      </div>
-      <div *ngIf="formulario.get('email').status === 'PENDING'" class="alert alert-warning" role="alert">
+      <app-erro-msg [control]="formulario.get('email')" label="Email"></app-erro-msg>
+      <!-- <div *ngIf="formulario.get('email').status === 'PENDING'" class="alert alert-warning" role="alert">
         Validando email...
        </div>
        <div *ngIf="formulario.get('email').status === 'VALID'" class="alert alert-success" role="alert">
@@ -23,16 +22,17 @@
        </div>
        <div *ngIf="formulario.get('email').hasError('emailInvalido')" class="alert alert-danger" role="alert">
         Email já cadastrado
-       </div>
+       </div> -->
     </div>
   </div>
   <div class="form-group row mb-3">
     <label for="confirmarEmail" class="col-sm-12 col-form-label">Confirmar Email</label>
     <div class="col-sm-12">
       <input type="confirmarEmail" class="form-control" id="confirmarEmail" placeholder="Email" formControlName="confirmarEmail" required />
-      <div *ngIf="formulario.get('confirmarEmail').hasError('equalsTo')" class="alert alert-danger" role="alert">
+      <app-erro-msg [control]="formulario.get('confirmarEmail')" label="Confirmar Email"></app-erro-msg>
+      <!-- <div *ngIf="formulario.get('confirmarEmail').hasError('equalsTo')" class="alert alert-danger" role="alert">
         Emails não são iguais
-      </div>
+      </div> -->
     </div>
   </div>
   <section formGroupName="endereco">
@@ -41,12 +41,13 @@
         <label for="cep" class="control-label">CEP</label>
         <input type="text" class="form-control" id="cep" formControlName="cep" placeholder="00000-000"
           (blur)="consultaCEP()" />
-        <div *ngIf="verificadorTouchedEValid('endereco.cep')" class="alert alert-danger" role="alert">
+           <app-erro-msg [control]="formulario.get('endereco.cep')" label="CEP"></app-erro-msg>
+         <!-- <div *ngIf="verificadorTouchedEValid('endereco.cep')" class="alert alert-danger" role="alert">
           CEP é obrigatório
         </div>
         <div *ngIf="formulario.get('endereco.cep').hasError('cepInvalido')" class="alert alert-danger" role="alert">
           CEP é Inválido
-        </div>
+        </div>  -->
       </div>
       <div class="col-md-3">
         <label for="numero" class="control-label">Numero</label>
@@ -64,25 +65,28 @@
       <label for="rua" class="col-sm-12 col-form-label">Rua</label>
       <div class="col-sm-12">
         <input type="text" class="form-control" id="rua" formControlName="rua" />
-        <div *ngIf="verificadorTouchedEValid('endereco.rua')" class="alert alert-danger" role="alert">
+        <app-erro-msg [control]="formulario.get('endereco.rua')" label="Rua"></app-erro-msg>
+        <!-- <div *ngIf="verificadorTouchedEValid('endereco.rua')" class="alert alert-danger" role="alert">
           Rua é obrigatório
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="form-group row mb-3">
       <div class="col-sm-5">
         <label for="bairro" class="control-label">Bairro</label>
         <input type="text" class="form-control" id="bairro" formControlName="bairro" />
-        <div *ngIf="verificadorTouchedEValid('endereco.bairro')" class="alert alert-danger" role="alert">
+        <app-erro-msg [control]="formulario.get('endereco.bairro')" label="Bairro"></app-erro-msg>
+        <!-- <div *ngIf="verificadorTouchedEValid('endereco.bairro')" class="alert alert-danger" role="alert">
           Bairro é obrigatório
-        </div>
+        </div> -->
       </div>
       <div class="col-sm-4">
         <label for="cidade" class="control-label">Cidade</label>
         <input type="text" class="form-control" id="cidade" formControlName="cidade" />
-        <div *ngIf="verificadorTouchedEValid('endereco.cidade')" class="alert alert-danger" role="alert">
+        <app-erro-msg [control]="formulario.get('endereco.cidade')" label="Nome"></app-erro-msg>
+        <!-- <div *ngIf="verificadorTouchedEValid('endereco.cidade')" class="alert alert-danger" role="alert">
           Cidade é obrigatório
-        </div>
+        </div> -->
       </div>
       <div class="col-sm-3">
         <label for="estado" class="control-label">Estado</label>
@@ -91,9 +95,10 @@
             {{ estado.nome }}
           </option>
         </select>
-        <div *ngIf="verificadorTouchedEValid('endereco.estado')" class="alert alert-danger" role="alert">
+        <app-erro-msg [control]="formulario.get('endereco.estado')" label="Estado"></app-erro-msg>
+        <!-- <div *ngIf="verificadorTouchedEValid('endereco.estado')" class="alert alert-danger" role="alert">
           Estado é obrigatório
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
@@ -133,9 +138,10 @@
           Aceito os termos.
         </label>
       </div>
-      <div *ngIf="verificadorTouchedEValid('termos')" class="alert alert-danger" role="alert">
+      <app-erro-msg [control]="formulario.get('termos')" label="Aceitar Termos"></app-erro-msg>
+      <!-- <div *ngIf="verificadorTouchedEValid('termos')" class="alert alert-danger" role="alert">
         Aceitar termos é obrigatório
-      </div>
+      </div> -->
     </div>
     <div class="col-md-3">
       <label for="">Frameworks</label>
@@ -147,7 +153,7 @@
       </div>
       <div *ngIf="verificadorFramework()" class="alert alert-danger" role="alert">
         Selecione 1 opção
-      </div>
+      </div> 
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

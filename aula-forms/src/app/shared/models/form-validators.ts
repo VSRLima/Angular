@@ -46,4 +46,14 @@ export class FormValidators {
     };
     return validator;
   }
+
+  static getErrorMsg(fieldName: string, validatorName: string, validatorValue?: any) {
+    const config = {
+      'required': `${fieldName} é obrigatório.`,
+      'minlength': `${fieldName} precisa ter no mínimo ${validatorValue.requiredLength} caracteres`,
+      'cepInvalido': 'Cep inválido.',
+      'equalsTo': 'Email não são iguais'
+    };
+    return config[validatorName];
+  }
 }
