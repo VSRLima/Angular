@@ -1,3 +1,4 @@
+import { InputFieldComponent } from './../shared/input-field/input-field.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -13,7 +14,8 @@ import { ErroMsgComponent } from './../shared/erro-msg/erro-msg.component';
   declarations: [
     DataFormComponent,
     FormDebugComponent,
-    ErroMsgComponent
+    ErroMsgComponent,
+    InputFieldComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,9 @@ import { ErroMsgComponent } from './../shared/erro-msg/erro-msg.component';
     HttpClientModule
   ],
   exports: [
-    FormDebugComponent
+    FormDebugComponent,
+    ErroMsgComponent,
+    InputFieldComponent
   ],
   providers: [ EstadosService ]
 })

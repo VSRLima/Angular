@@ -1,14 +1,15 @@
 <form class="form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
-  <div class="form-group row mb-3">
+  <app-input-field class="col-sm-12" id="nome" label="Nome" control="formulario.get('nome')" holder="Nome" formControlName="nome"></app-input-field>
+  <!-- <div class="form-group row mb-3">
     <label for="nome" class="col-sm-12 col-form-label">Nome</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome" required />
-      <app-erro-msg [control]="formulario.get('nome')" label="Nome"></app-erro-msg>
+      <app-erro-msg [control]="formulario.get('nome')" label="Nome"></app-erro-msg> -->
       <!-- <div *ngIf="verificadorTouchedEValid('nome')" class="alert alert-danger" role="alert">
         Nome é obrigatório
       </div> -->
-    </div>
-  </div>
+    <!-- </div>
+  </div> -->
   <div class="form-group row mb-3">
     <label for="email" class="col-sm-12 col-form-label">Email</label>
     <div class="col-sm-12">
@@ -39,8 +40,7 @@
     <div class="form-group row mb-3">
       <div class="col-md-3">
         <label for="cep" class="control-label">CEP</label>
-        <input type="text" class="form-control" id="cep" formControlName="cep" placeholder="00000-000"
-          (blur)="consultaCEP()" />
+        <input type="text" class="form-control" id="cep" formControlName="cep" placeholder="00000-000"/>
            <app-erro-msg [control]="formulario.get('endereco.cep')" label="CEP"></app-erro-msg>
          <!-- <div *ngIf="verificadorTouchedEValid('endereco.cep')" class="alert alert-danger" role="alert">
           CEP é obrigatório
@@ -153,7 +153,7 @@
       </div>
       <div *ngIf="verificadorFramework()" class="alert alert-danger" role="alert">
         Selecione 1 opção
-      </div> 
+      </div>
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

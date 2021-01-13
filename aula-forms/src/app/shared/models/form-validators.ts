@@ -19,8 +19,9 @@ export class FormValidators {
 
     const cep = control.value;
     if (cep && cep !== "") {
-      var validacep = /^\d{5}-\d{3}$/;
-      return validacep.test(cep) ? null : {cepInvalido: true}
+      var validacep = /^[0-9]{8}$/;
+      var validacep2 = /^\d{5}-\d{3}$/
+      return validacep.test(cep) || validacep2.test(cep) ? null : {cepInvalido: true}
     }
 
     return null

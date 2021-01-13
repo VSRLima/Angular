@@ -1,5 +1,5 @@
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -79,7 +79,22 @@ export class DataFormComponent implements OnInit {
       newsletter: ['s'],
       termos: [null, Validators.pattern('true')],
       framework: this.formBuilder.array([])
-    })
+    });
+
+    this.formulario.get('endereco.cep').statusChanges
+      .pipe(
+        distinctUntilChanged(),
+        tap(value => console.log('status CEP:', value)),
+        switchMap(status => status === 'VALID' ? this.cepService.consultaCEP(this.formulario.get('endereco.cep').value) : EMPTY)
+      ).subscribe(dados => dados ? this.popularDadosForm(dados) : {})
+      // .subscribe(status => {
+      //   if (status === 'VALID') {
+      //     this.cepService.consultaCEP(
+      //       this.formulario.get('endereco.cep').value)
+      //       .subscribe(dados => this.popularDadosForm(dados))
+      //     }
+      //   }
+      // );
   }
 
   get framework() {
