@@ -1,5 +1,5 @@
 <div class="form-group row mb-3">
   <label [attr.for]="id" class="col-sm-12 col-form-label">{{ label }}</label>
-  <input [type]="type" class="form-control" [id]="id" [placeholder]="holder" required/>
+  <input [type]="type" class="form-control" [id]="id" [placeholder]="holder" [readonly]="!!isReadOnly" [(ngModel)]="value" required/>
   <app-erro-msg [control]="control" [label]="label"></app-erro-msg>
 </div>
