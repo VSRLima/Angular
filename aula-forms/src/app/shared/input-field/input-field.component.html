@@ -1,5 +1,8 @@
-<div class="form-group row mb-3">
+<div class="form-group row mb-3" name="form">
   <label [attr.for]="id" class="col-sm-12 col-form-label">{{ label }}</label>
-  <input [type]="type" class="form-control" [id]="id" [placeholder]="holder" [readonly]="!!isReadOnly" [(ngModel)]="value" required/>
-  <app-erro-msg [control]="control" [label]="label"></app-erro-msg>
+  <input [type]="type" class="form-control" [id]="id" [placeholder]="holder" [readonly]="!!isReadOnly" [(ngModel)]="value" required name="input" #validations="ngModel"/>
+  <div id="error" class="alert alert-danger col-md-12" *ngIf="verificarValidETouched(validations)">
+    {{label}} é obrigatório
+  </div>
+  <app-error-msg [control]="control" [label]="label"></app-error-msg>
 </div>

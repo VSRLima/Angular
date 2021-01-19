@@ -9,12 +9,15 @@ import { DataFormComponent } from './data-form.component';
 import { EstadosService } from '../shared/services/estados.service';
 import { FormDebugComponent } from './../form-debug/form-debug.component';
 import { ErroMsgComponent } from './../shared/erro-msg/erro-msg.component';
+import { ErrorMsgComponent } from '../shared/error-msg/error-msg.component';
+
 
 @NgModule({
   declarations: [
     DataFormComponent,
     FormDebugComponent,
     ErroMsgComponent,
+    ErrorMsgComponent,
     InputFieldComponent
   ],
   imports: [
@@ -26,7 +29,8 @@ import { ErroMsgComponent } from './../shared/erro-msg/erro-msg.component';
   exports: [
     FormDebugComponent,
     ErroMsgComponent,
-    InputFieldComponent
+    InputFieldComponent,
+    ErrorMsgComponent
   ],
   providers: [ EstadosService ]
 })

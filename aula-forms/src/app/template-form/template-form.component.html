@@ -1,10 +1,10 @@
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form">
-    <div class="form-group row mb-3"> 
+    <div class="form-group row mb-3">
         <label for="nome" class="col-sm-12 col-form-label">Nome</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" [(ngModel)]="usuario.nome" required #nome="ngModel">
             <div *ngIf="verificadorTouchedEValid(nome)" class="alert alert-danger" role="alert">
-                Nome é obrigatório 
+                Nome é obrigatório
             </div>
         </div>
     </div>
@@ -13,7 +13,7 @@
         <div class="col-sm-10">
             <input type="email" class="form-control" id="email" placeholder="Email" name="email" [(ngModel)]="usuario.email" required #email="ngModel">
             <div *ngIf="verificadorTouchedEValid(email)" class="alert alert-danger" role="alert">
-                Email é obrigatório 
+                Email é obrigatório
             </div>
         </div>
     </div>
@@ -23,14 +23,14 @@
                 <label for="cep" class="control-label">CEP</label>
                 <input type="text" class="form-control" id="cep" name="cep"  ngModel required #cep="ngModel" placeholder="00000-000" (blur)="consultaCEP(cep.value, f)">
                 <div *ngIf="verificadorTouchedEValid(cep)" class="alert alert-danger" role="alert">
-                    CEP é obrigatório 
+                    CEP é obrigatório
                 </div>
             </div>
             <div class="col-md-3">
                 <label for="numero" class="control-label">Numero</label>
                 <input type="text" class="form-control" id="numero" name="numero" ngModel required #numero="ngModel" placeholder="">
                 <div *ngIf="verificadorTouchedEValid(numero)" class="alert alert-danger" role="alert">
-                    Numero é obrigatório 
+                    Numero é obrigatório
                 </div>
             </div>
             <div class="col-md-6">
@@ -38,35 +38,35 @@
                 <input type="text" class="form-control" id="complemento" name="complemento" ngModel #complemento="ngModel" placeholder="">
             </div>
         </div>
-        <div class="form-group row mb-3"> 
+        <div class="form-group row mb-3">
             <label for="rua" class="col-sm-12 col-form-label">Rua</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="rua" name="rua" ngModel required #rua="ngModel" >
                 <div *ngIf="verificadorTouchedEValid(rua)" class="alert alert-danger" role="alert">
-                    Rua é obrigatório 
+                    Rua é obrigatório
                 </div>
             </div>
         </div>
-        <div class="form-group row mb-3"> 
+        <div class="form-group row mb-3">
             <div class="col-sm-5">
                 <label for="bairro" class="control-label">Bairro</label>
                 <input type="text" class="form-control" id="bairro" name="bairro" ngModel required #bairro="ngModel">
                 <div *ngIf="verificadorTouchedEValid(bairro)" class="alert alert-danger" role="alert">
-                    Bairro é obrigatório 
+                    Bairro é obrigatório
                 </div>
             </div>
             <div class="col-sm-4">
                 <label for="cidade" class="control-label">Cidade</label>
                 <input type="text" class="form-control" id="cidade" name="cidade" ngModel required #cidade="ngModel">
                 <div *ngIf="verificadorTouchedEValid(cidade)" class="alert alert-danger" role="alert">
-                    Cidade é obrigatório 
+                    Cidade é obrigatório
                 </div>
             </div>
             <div class="col-sm-3">
                 <label for="estado" class="control-label">Estado</label>
                 <input type="text" class="form-control" id="estado" name="estado" ngModel required #estado="ngModel">
                 <div *ngIf="verificadorTouchedEValid(estado)" class="alert alert-danger" role="alert">
-                    Estado é obrigatório 
+                    Estado é obrigatório
                 </div>
             </div>
         </div>

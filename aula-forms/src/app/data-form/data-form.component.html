@@ -1,13 +1,11 @@
 <form class="form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
-  <app-input-field class="col-sm-12" id="nome" label="Nome" control="formulario.get('nome')" holder="Nome" formControlName="nome"></app-input-field>
-  <div *ngIf="verificadorTouchedEValid('nome')" class="alert alert-danger" role="alert">
-    Nome é obrigatório
-  </div>
+  <app-input-field class="col-sm-12" id="nome" label="Nome" control="formulario.get('nome')" holder="Nome" formControlName="nome" ></app-input-field>
+
   <!-- <div class="form-group row mb-3">
     <label for="nome" class="col-sm-12 col-form-label">Nome</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome" required />
-      <app-erro-msg [control]="formulario.get('nome')" label="Nome"></app-erro-msg> -->
+      <app-error-msg [control]="formulario.get('nome')" label="Nome"></app-error-msg> -->
       <!-- <div *ngIf="verificadorTouchedEValid('nome')" class="alert alert-danger" role="alert">
         Nome é obrigatório
       </div> -->
@@ -17,7 +15,7 @@
     <label for="email" class="col-sm-12 col-form-label">Email</label>
     <div class="col-sm-12">
       <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" required />
-      <app-erro-msg [control]="formulario.get('email')" label="Email"></app-erro-msg>
+      <app-error-msg [control]="formulario.get('email')" label="Email"></app-error-msg>
       <!-- <div *ngIf="formulario.get('email').status === 'PENDING'" class="alert alert-warning" role="alert">
         Validando email...
        </div>
@@ -33,7 +31,7 @@
     <label for="confirmarEmail" class="col-sm-12 col-form-label">Confirmar Email</label>
     <div class="col-sm-12">
       <input type="confirmarEmail" class="form-control" id="confirmarEmail" placeholder="Email" formControlName="confirmarEmail" required />
-      <app-erro-msg [control]="formulario.get('confirmarEmail')" label="Confirmar Email"></app-erro-msg>
+      <app-error-msg [control]="formulario.get('confirmarEmail')" label="Confirmar Email"></app-error-msg>
       <!-- <div *ngIf="formulario.get('confirmarEmail').hasError('equalsTo')" class="alert alert-danger" role="alert">
         Emails não são iguais
       </div> -->
@@ -44,7 +42,7 @@
       <div class="col-md-3">
         <label for="cep" class="control-label">CEP</label>
         <input type="text" class="form-control" id="cep" formControlName="cep" placeholder="00000-000"/>
-           <app-erro-msg [control]="formulario.get('endereco.cep')" label="CEP"></app-erro-msg>
+           <app-error-msg [control]="formulario.get('endereco.cep')" label="CEP"></app-error-msg>
          <!-- <div *ngIf="verificadorTouchedEValid('endereco.cep')" class="alert alert-danger" role="alert">
           CEP é obrigatório
         </div>
@@ -68,7 +66,7 @@
       <label for="rua" class="col-sm-12 col-form-label">Rua</label>
       <div class="col-sm-12">
         <input type="text" class="form-control" id="rua" formControlName="rua" />
-        <app-erro-msg [control]="formulario.get('endereco.rua')" label="Rua"></app-erro-msg>
+        <app-error-msg [control]="formulario.get('endereco.rua')" label="Rua"></app-error-msg>
         <!-- <div *ngIf="verificadorTouchedEValid('endereco.rua')" class="alert alert-danger" role="alert">
           Rua é obrigatório
         </div> -->
@@ -78,7 +76,7 @@
       <div class="col-sm-5">
         <label for="bairro" class="control-label">Bairro</label>
         <input type="text" class="form-control" id="bairro" formControlName="bairro" />
-        <app-erro-msg [control]="formulario.get('endereco.bairro')" label="Bairro"></app-erro-msg>
+        <app-error-msg [control]="formulario.get('endereco.bairro')" label="Bairro"></app-error-msg>
         <!-- <div *ngIf="verificadorTouchedEValid('endereco.bairro')" class="alert alert-danger" role="alert">
           Bairro é obrigatório
         </div> -->
@@ -86,7 +84,7 @@
       <div class="col-sm-4">
         <label for="cidade" class="control-label">Cidade</label>
         <input type="text" class="form-control" id="cidade" formControlName="cidade" />
-        <app-erro-msg [control]="formulario.get('endereco.cidade')" label="Nome"></app-erro-msg>
+        <app-error-msg [control]="formulario.get('endereco.cidade')" label="Nome"></app-error-msg>
         <!-- <div *ngIf="verificadorTouchedEValid('endereco.cidade')" class="alert alert-danger" role="alert">
           Cidade é obrigatório
         </div> -->
@@ -98,7 +96,7 @@
             {{ estado.nome }}
           </option>
         </select>
-        <app-erro-msg [control]="formulario.get('endereco.estado')" label="Estado"></app-erro-msg>
+        <app-error-msg [control]="formulario.get('endereco.estado')" label="Estado"></app-error-msg>
         <!-- <div *ngIf="verificadorTouchedEValid('endereco.estado')" class="alert alert-danger" role="alert">
           Estado é obrigatório
         </div> -->
@@ -141,7 +139,7 @@
           Aceito os termos.
         </label>
       </div>
-      <app-erro-msg [control]="formulario.get('termos')" label="Aceitar Termos"></app-erro-msg>
+      <app-error-msg [control]="formulario.get('termos')" label="Aceitar Termos"></app-error-msg>
       <!-- <div *ngIf="verificadorTouchedEValid('termos')" class="alert alert-danger" role="alert">
         Aceitar termos é obrigatório
       </div> -->
