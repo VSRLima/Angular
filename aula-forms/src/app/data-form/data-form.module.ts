@@ -1,5 +1,3 @@
-import { InputFieldComponent } from './../shared/input-field/input-field.component';
-
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,6 +8,7 @@ import { EstadosService } from '../shared/services/estados.service';
 import { FormDebugComponent } from './../form-debug/form-debug.component';
 import { ErroMsgComponent } from './../shared/erro-msg/erro-msg.component';
 import { ErrorMsgComponent } from '../shared/error-msg/error-msg.component';
+import { InputFieldComponent } from './../shared/input-field/input-field.component';
 
 
 @NgModule({
@@ -18,7 +17,7 @@ import { ErrorMsgComponent } from '../shared/error-msg/error-msg.component';
     FormDebugComponent,
     ErroMsgComponent,
     ErrorMsgComponent,
-    InputFieldComponent
+    InputFieldComponent,
   ],
   imports: [
     CommonModule,

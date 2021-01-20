@@ -1,3 +1,4 @@
+import { BaseFormComponent } from './../shared/base-form/base-form.component';
 import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { EMPTY, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -18,9 +19,9 @@ import { VerificaEmailService } from '../shared/services/verifica-email.service'
   templateUrl: './data-form.component.html',
   styleUrls: ['./data-form.component.css']
 })
-export class DataFormComponent implements OnInit {
+export class DataFormComponent extends BaseFormComponent implements OnInit {
 
-  formulario: FormGroup;
+
   estados: Observable<EstadoBr[]>;
   cargos: Observable<Cargos[]>;
   tecnologia: Observable<Tecnologias[]>;
@@ -35,7 +36,9 @@ export class DataFormComponent implements OnInit {
     private estadoService: EstadosService,
     private cepService: ConsultaCepService,
     private verificaEmailService: VerificaEmailService
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
 
@@ -117,23 +120,17 @@ export class DataFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  submit() {
     let valueSubmit = Object.assign({}, this.formulario.value);
      valueSubmit = Object.assign(valueSubmit, {
       framework: valueSubmit.framework.map((v,i) => v ? this.frameworks[i] : null).filter(v => v !== null)
     });
     console.log(valueSubmit);
-    if(this.formulario.valid) {
-      this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit)).subscribe( dados => {
+    this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit)).subscribe( dados => {
         console.log(dados);
       }, (error:any) => alert('erro'));
-    } else {
-      console.log('formulário inválido');
-      this.verificaValidacoesForm(this.formulario);
-      this.verificadorFramework();
-    };
-    console.log(this.formulario);
   }
+
 
   verificaValidacoesForm(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(campo => {
@@ -144,10 +141,6 @@ export class DataFormComponent implements OnInit {
         this.verificaValidacoesForm(controle);
       }
     });
-  }
-
-  resetar() {
-    this.formulario.reset();
   }
 
   consultaCEP() {
