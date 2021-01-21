@@ -83,8 +83,15 @@
       </div>
       <div class="col-sm-4">
         <label for="cidade" class="control-label">Cidade</label>
+        <select class="form-control" id="cidade" formControlName="cidade">
+          <option *ngFor="let cidade of cidades" [value]="cidade.nome">
+            {{ cidade.nome }}
+          </option>
+        </select>
+        <app-error-msg [control]="formulario.get('endereco.cidade')" label="Cidade"></app-error-msg>
+        <!-- <label for="cidade" class="control-label">Cidade</label>
         <input type="text" class="form-control" id="cidade" formControlName="cidade" />
-        <app-error-msg [control]="formulario.get('endereco.cidade')" label="Nome"></app-error-msg>
+        <app-error-msg [control]="formulario.get('endereco.cidade')" label="Nome"></app-error-msg> -->
         <!-- <div *ngIf="verificadorTouchedEValid('endereco.cidade')" class="alert alert-danger" role="alert">
           Cidade é obrigatório
         </div> -->
@@ -92,7 +99,7 @@
       <div class="col-sm-3">
         <label for="estado" class="control-label">Estado</label>
         <select class="form-control" id="estado" formControlName="estado">
-          <option *ngFor="let estado of estados | async" [value]="estado.sigla">
+          <option *ngFor="let estado of estados" [value]="estado.sigla">
             {{ estado.nome }}
           </option>
         </select>

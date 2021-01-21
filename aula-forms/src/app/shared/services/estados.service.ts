@@ -1,7 +1,7 @@
 import { Cidade } from './../models/cidade';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { retry } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 
 import { EstadoBr } from '../models/estado-br';
 import { Cargos } from '../models/cargos';
@@ -28,7 +28,9 @@ export class EstadosService {
   };
 
   getCidades(idEstado: number) {
-    return this.http.get<Cidade[]>(this.urlCidade).pipe(retry(2));
+    return this.http.get<Cidade[]>(this.urlCidade).pipe(
+      map((cidades: Cidade[]) => cidades.filter(c => c.estado == idEstado))
+    );
   }
 
   getCargos() {

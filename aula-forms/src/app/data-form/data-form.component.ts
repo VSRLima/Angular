@@ -1,3 +1,4 @@
+import { Cidade } from './../shared/models/cidade';
 import { BaseFormComponent } from './../shared/base-form/base-form.component';
 import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { EMPTY, Observable } from 'rxjs';
@@ -22,7 +23,8 @@ import { VerificaEmailService } from '../shared/services/verifica-email.service'
 export class DataFormComponent extends BaseFormComponent implements OnInit {
 
 
-  estados: Observable<EstadoBr[]>;
+  estados: EstadoBr[];
+  cidades: Cidade[];
   cargos: Observable<Cargos[]>;
   tecnologia: Observable<Tecnologias[]>;
   newsletters: Observable<Newsletters[]>;
@@ -42,7 +44,8 @@ export class DataFormComponent extends BaseFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.estados = this.estadoService.getEstadosBr();
+    //this.estados = this.estadoService.getEstadosBr();
+    this.estadoService.getEstadosBr().subscribe(dados => this.estados = dados);
     this.cargos = this.estadoService.getCargos();
     this.tecnologia = this.estadoService.getTecnologias();
     this.newsletters = this.estadoService.getNewsletters();
@@ -98,6 +101,17 @@ export class DataFormComponent extends BaseFormComponent implements OnInit {
       //     }
       //   }
       // );
+      // this.estadoService.getCidades(8).subscribe(console.log)
+
+      this.formulario.get('endereco.estado').valueChanges
+      .pipe(
+        tap(estado => console.log('Novo estado: ', estado)),
+        map(estado => this.estados.filter(e => e.sigla === estado)),
+        map(estados => estados && estados.length > 0 ? estados[0].id : EMPTY),
+        switchMap((estadoID: number) => this.estadoService.getCidades(estadoID)),
+        tap(console.log)
+      )
+      .subscribe(cidades => this.cidades = cidades);
   }
 
   get framework() {
