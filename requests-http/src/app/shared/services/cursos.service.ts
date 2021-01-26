@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { delay, tap } from 'rxjs/operators';
 
-import { Curso } from './../models/curso';
+import { Curso } from '../models/curso';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

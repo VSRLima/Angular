@@ -1,19 +1,4 @@
-<ul class="nav justify-content-center">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-  </li>
-</ul>
-
-<table class="table table-dark table-striped" *ngIf="cursos$ | async as cursos; else loading">
+<table class="table table-dark table-striped" *ngIf="cursos$ | async as cursos; else loadingError">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -33,6 +18,11 @@
     </tr>
   </tbody>
 </table>
-<ng-template #loading>
-  <span>Carregando Cursos...</span>
+<ng-template #loadingError>
+  <div *ngIf="error$ | async; else loading">
+    Error ao carregar cursos. Tente novamente mais tarde
+  </div>
+  <ng-template #loading>
+    <span>Carregando Cursos...</span>
+  </ng-template>
 </ng-template>

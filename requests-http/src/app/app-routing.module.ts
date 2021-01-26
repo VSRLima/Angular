@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CursosComponent } from './cursos/cursos.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,10 @@ const routes: Routes = [
     path: 'rxjs-poc',
     loadChildren: () => import('../app/unsubscribe-rxjs/module-rxjs.module').then(m => m.ModuleRxjsModule)
   },
+  {
+    path: 'cursos',
+    component: CursosComponent
+  }
 ];
 
 @NgModule({
