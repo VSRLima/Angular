@@ -7,8 +7,18 @@ table {
   width: 50rem;
   margin: auto;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 th {
   width: 25rem;
+}
+
+.space {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  margin-top: 1rem;
 }
