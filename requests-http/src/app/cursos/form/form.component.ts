@@ -38,24 +38,26 @@ export class FormComponent implements OnInit {
     //   }
     // );
 
-    this.route.params
-    .pipe(
-      map((params: any) => params['id']),
-      switchMap(id => this.service.loadById(id))
-    )
-    .subscribe(
-      (curso) => {this.updateForm(curso);}
-    );
+    // this.route.params
+    // .pipe(
+    //   map((params: any) => params['id']),
+    //   switchMap(id => this.service.loadById(id))
+    // )
+    // .subscribe(
+    //   (curso) => {this.updateForm(curso);}
+    // );
       // concatMap -> ordem da requisição importa
       // mergeMap -> ordem não importa
       // exhaustMap -> ele faz o pedido, espera a resposta e depois passa pra próxima requisição (casos de login)
 
+    const curso = this.route.snapshot.data['curso'];
+
     this.form = this.fb.group({
       id: [
-        null
+        curso.id
       ],
       nome: [
-        null,
+        curso.nome,
         [
           Validators.required,
           Validators.minLength(3),
@@ -63,13 +65,6 @@ export class FormComponent implements OnInit {
         ],
       ],
     });
-  }
-
-  updateForm(curso) {
-    this.form.patchValue({
-      id: curso.id,
-      nome: curso.nome
-    })
   }
 
   hasError(field: string) {
@@ -81,24 +76,63 @@ export class FormComponent implements OnInit {
     console.log(this.form.value);
     if (this.form.valid) {
       console.log('submit');
-      this.service.create(this.form.value).subscribe(
-        (success) => {
-          this.modal.showAlert('Curso criado', 'success', 3000),
-            this.location.back();
+      let msgSuccess = "Curso criado";
+      let msgErro = "Erro ao criar curso, tente novamente!";
+      if (this.form.value.id) {
+        msgSuccess = "Curso atualizado com sucesso";
+        msgErro = "Erro ao atualizar curso, tente novamente!";
+      }
+      this.service.save(this.form.value).subscribe(
+        success => {
+          this.modal.showAlert(msgSuccess, 'success', 3000),
+          this.location.back();
         },
-        (error) =>
+        error => {
           this.modal.showAlert(
-            'Erro ao criar curso, tente novamente!',
+            msgErro,
             'danger',
             10000
-          ),
-        () => console.log('request completo')
-      );
+          )
+        }
+      )
+      // if (this.form.value.id) {
+      //   this.service.update(this.form.value).subscribe(
+      //     (success) => {
+      //       this.modal.showAlert('Curso atualizado', 'success', 3000),
+      //         this.location.back();
+      //     },
+      //     (error) =>
+      //       this.modal.showAlert(
+      //         'Erro ao atualizar curso, tente novamente!',
+      //         'danger',
+      //         10000
+      //       ),
+      //     () => console.log('update completo')
+      //   )
+      // } else{
+      //   this.service.create(this.form.value).subscribe(
+      //     (success) => {
+      //       this.modal.showAlert('Curso criado', 'success', 3000),
+      //         this.location.back();
+      //     },
+      //     (error) =>
+      //       this.modal.showAlert(
+      //         'Erro ao criar curso, tente novamente!',
+      //         'danger',
+      //         10000
+      //       ),
+      //     () => console.log('request completo')
+      //   );
+      // }
     }
   }
 
   onCancel() {
     this.submitted = false;
     this.form.reset();
+  }
+
+  onDelete(curso) {
+    
   }
 }

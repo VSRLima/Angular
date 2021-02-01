@@ -21,7 +21,7 @@
         <td>
           <button class="btn btn-outline-warning mb-1 btn-sm" (click)="onEdit(curso.id)">EDITAR</button>
           {{ "" }}
-          <button class="btn btn-outline-danger mb-1 btn-sm">DELETAR</button>
+          <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onDelete(curso)">DELETAR</button>
         </td>
       </tr>
     </tbody>
@@ -30,3 +30,10 @@
     <span>Carregando Cursos...</span>
   </ng-template>
 </div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="" >No</button>
+  </div>
+</ng-template>

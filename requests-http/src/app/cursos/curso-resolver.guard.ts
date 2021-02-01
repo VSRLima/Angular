@@ -1,6 +1,6 @@
 import { Curso } from './../shared/models/curso';
 import { Injectable } from '@angular/core';
-import { Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { CursosService } from '../shared/services/cursos.service';
