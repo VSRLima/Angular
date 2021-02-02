@@ -30,10 +30,10 @@
     <span>Carregando Cursos...</span>
   </ng-template>
 </div>
-<ng-template #template>
+<ng-template #deleteModal>
   <div class="modal-body text-center">
-    <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="" >Yes</button>
-    <button type="button" class="btn btn-primary" (click)="" >No</button>
+    <p>Tem certeza que deseja remover o curso?</p>
+    <button type="button" class="btn btn-default" (click)="onConfirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="onDecline()">Não</button>
   </div>
 </ng-template>

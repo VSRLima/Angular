@@ -1,11 +1,12 @@
-import { map, switchMap } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { CursosServiceService } from './../../shared/services/cursos-service.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 
 import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 import { CursosService } from 'src/app/shared/services/cursos.service';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-form',
@@ -19,10 +20,11 @@ export class FormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: CursosService,
+    private service: CursosServiceService,
     private modal: AlertModalService,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+
   ) {}
 
   ngOnInit(): void {
@@ -132,7 +134,5 @@ export class FormComponent implements OnInit {
     this.form.reset();
   }
 
-  onDelete(curso) {
-    
-  }
+
 }
